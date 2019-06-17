@@ -1,7 +1,7 @@
 /*!
  * Bootstrap-select v1.7.3 (http://silviomoreto.github.io/bootstrap-select)
  *
- * Copyright 2013-2015 bootstrap-select
+ * Copyright 2013-2019 bootstrap-select
  * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)
  */
 
@@ -17,7 +17,7 @@
     // like Node.
     module.exports = factory(require("jquery"));
   } else {
-    factory(jQuery);
+    factory(root["jQuery"]);
   }
 }(this, function () {
 
@@ -665,6 +665,11 @@
         }
       }
 
+      //If all options are selected, use the all selected text if specified.
+      if (this.options.allSelectedText !== undefined && selectedItems.length == this.$element.find('option').length) {
+        title = this.options.allSelectedText;
+      }
+
       if (this.options.title == undefined) {
         this.options.title = this.$element.attr('title');
       }
@@ -1248,6 +1253,12 @@
               that.$lis.filter('[data-optgroup=' + optgroup + 'div]').addClass('hidden');
             }
           });
+
+          //--- Custom SiteFactory logic for injecting 'after search' behaviour 
+          if (that.options.afterSearch) {
+            that.options.afterSearch.call(that);
+          }
+          //--- End custom logic
 
           var $lisVisible = that.$lis.not('.hidden');
 
