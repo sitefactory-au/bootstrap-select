@@ -1231,6 +1231,12 @@
             }
           });
 
+          //--- Custom SiteFactory logic for injecting 'after search' behaviour 
+          if (that.options.afterSearch) {
+            that.options.afterSearch.call(that);
+          }
+          //--- End custom logic
+
           var $lisVisible = that.$lis.not('.hidden');
 
           // hide divider if first or last visible, or if followed by another divider
