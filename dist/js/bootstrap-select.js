@@ -330,7 +330,8 @@
     maxOptions: false,
     mobile: false,
     selectOnTab: false,
-    dropdownAlignRight: false
+    dropdownAlignRight: false,
+	showFirstDivider: false
   };
 
   Selectpicker.prototype = {
@@ -572,7 +573,7 @@
             
             label = labelIcon + '<span class="text">' + label + labelSubtext + '</span>';
 
-            if (index !== 0 && _li.length > 0) { // Is it NOT the first option of the select && are there elements in the dropdown?
+            if (that.options.showFirstDivider || (index !== 0 && _li.length > 0)) { // Is it NOT the first option of the select && are there elements in the dropdown?
               liIndex++;
               _li.push(generateLI('', null, 'divider', optID + 'div'));
             }
